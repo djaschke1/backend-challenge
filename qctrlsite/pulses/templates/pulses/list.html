@@ -1,0 +1,19 @@
+<title>Q-CTRL pulses</title>
+<h1>List of all pulses</h1>
+
+{% if is_empty %}
+  <p> No pulses in the database. </p>
+{% else %}
+  <ul>
+    {% for item in all_pulses %}
+    <li>
+      <strong>{{ item.name }}:</strong>
+      Pulse type : {{item.ptype}} -
+      Rabi rate: {{item.max_rabi_rate}} -
+      Angle: {{item.polar_angle}}
+      <a href="update/{{item.name}}/">Update</a>
+      <a href="delete/{{item.name}}/">Delete</a>
+    </li>
+    {% endfor %}
+  </ul>
+{% endif %}

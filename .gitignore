@@ -1,0 +1,4 @@
+*~
+*.pyc
+
+qctrlsite/pulses/migrations/*

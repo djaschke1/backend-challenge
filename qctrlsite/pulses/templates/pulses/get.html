@@ -1,0 +1,13 @@
+<title>Q-CTRL pulses</title>
+<h1>Download a single pulse</h1>
+
+<form action="" method="post">
+  {% csrf_token %}
+
+  {{ form }}
+  <input type="submit" value="Download">
+</form>
+
+{% if has_msg %}
+  <p> {{ msg }} </p>
+{% endif %}
