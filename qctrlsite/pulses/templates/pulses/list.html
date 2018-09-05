@@ -11,9 +11,21 @@
       Pulse type : {{item.ptype}} -
       Rabi rate: {{item.max_rabi_rate}} -
       Angle: {{item.polar_angle}}
-      <a href="update/{{item.name}}/">Update</a>
-      <a href="delete/{{item.name}}/">Delete</a>
+      <a href="/pulses/update/{{item.name}}/">Update</a>
+      <a href="/pulses/delete/{{item.name}}/">Delete</a>
     </li>
     {% endfor %}
   </ul>
 {% endif %}
+
+{% if has_prev %}
+  <a href="{{prev}}"> Previous</a>
+{% endif %}
+  
+{% if has_next %}
+  <a href="{{next}}"> Next</a>
+{% endif %}
+
+
+
+<strong> Navigation </strong> <a href="/pulses/"> Home </a>

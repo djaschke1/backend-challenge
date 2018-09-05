@@ -4,6 +4,7 @@ from django.template import loader
 
 from .forms import PulseForm, PulseNameForm, UpdateForm, UploadForm
 from .models import Pulse
+import numpy as np
 
 
 # Create your views here.
@@ -78,11 +79,36 @@ def manage_create(request):
     #return HttpResponse('Create new pulse')
 
 
-def manage_list(request):
+def manage_list(request, page=1):
     all_pulses = Pulse.objects.all()
     is_empty = (len(all_pulses) == 0)
 
-    context = {'all_pulses' : all_pulses, 'is_empty' : is_empty}
+    number_of_pages = int(np.ceil(float(len(all_pulses)) / 5.0))
+
+    # Prevent too large page values just showing the last page
+    page = min(page, number_of_pages)
+
+    # Get indices
+    low = max(0, (page - 1) * 5)
+    up = page * 5
+
+    has_prev = (page > 1)
+    if(has_prev):
+        prev = '/pulses/list/' + str(page - 1) + '/'
+    else:
+        prev = ''
+
+    has_next = (page < number_of_pages)
+    if(has_next):
+        nextp = '/pulses/list/' + str(page + 1) + '/'
+    else:
+        nextp = ''
+
+    print('Info', page, number_of_pages, prev, '#',  nextp)
+
+    context = {'all_pulses' : all_pulses[low:up], 'is_empty' : is_empty,
+               'has_prev' : has_prev, 'has_next' : has_next,
+               'prev' : prev, 'next' : nextp}
     
     return render(request, 'pulses/list.html', context)
     #return HttpResponse('List all pulses')
